@@ -1,0 +1,192 @@
+{
+  "assets/cacse/ScrollView/BaseAdapter.js": {
+    "imports": {
+      "cc": "quick-pack:/cce/internal/x/cc.js",
+      "__unresolved_0": "quick-pack:/cce/internal/code-quality/cr.js"
+    },
+    "physicalLocation": "fs/0/assets/cacse/ScrollView/BaseAdapter.js",
+    "mTimestamp": 1634557874760
+  },
+  "assets/cacse/ScrollView/SuperScrollView.js": {
+    "imports": {
+      "__unresolved_0": "quick-pack:/cce/internal/code-quality/cr.js",
+      "cc": "quick-pack:/cce/internal/x/cc.js"
+    },
+    "physicalLocation": "fs/0/assets/cacse/ScrollView/SuperScrollView.js",
+    "mTimestamp": 1634487080733
+  },
+  "assets/cacse/ScrollView/ScrollViewScene.js": {
+    "imports": {
+      "cc": "quick-pack:/cce/internal/x/cc.js",
+      "__unresolved_1": "assets/cacse/ScrollView/RecyclerView.js",
+      "__unresolved_2": "assets/cacse/ScrollView/TestAdapter.js",
+      "__unresolved_0": "quick-pack:/cce/internal/code-quality/cr.js"
+    },
+    "physicalLocation": "fs/0/assets/cacse/ScrollView/ScrollViewScene.js",
+    "mTimestamp": 1634557874834
+  },
+  "assets/cacse/ScrollView/BaseViewHolder.js": {
+    "imports": {
+      "cc": "quick-pack:/cce/internal/x/cc.js"
+    },
+    "physicalLocation": "fs/0/assets/cacse/ScrollView/BaseViewHolder.js",
+    "mTimestamp": 1634557874715
+  },
+  "assets/cacse/ScrollView/TestViewHolder.js": {
+    "imports": {
+      "cc": "quick-pack:/cce/internal/x/cc.js",
+      "__unresolved_1": "assets/cacse/ScrollView/BaseViewHolder.js",
+      "__unresolved_0": "quick-pack:/cce/internal/code-quality/cr.js"
+    },
+    "physicalLocation": "fs/0/assets/cacse/ScrollView/TestViewHolder.js",
+    "mTimestamp": 1634557874866
+  },
+  "assets/cacse/ScrollView/TestViewHolder2.js": {
+    "imports": {
+      "cc": "quick-pack:/cce/internal/x/cc.js",
+      "__unresolved_0": "quick-pack:/cce/internal/code-quality/cr.js",
+      "__unresolved_1": "assets/cacse/ScrollView/BaseViewHolder.js"
+    },
+    "physicalLocation": "fs/0/assets/cacse/ScrollView/TestViewHolder2.js",
+    "mTimestamp": 1634557874893
+  },
+  "assets/cacse/ScrollView/RecyclerView.js": {
+    "imports": {
+      "cc": "quick-pack:/cce/internal/x/cc.js",
+      "__unresolved_0": "quick-pack:/cce/internal/code-quality/cr.js"
+    },
+    "physicalLocation": "fs/0/assets/cacse/ScrollView/RecyclerView.js",
+    "mTimestamp": 1634557875036
+  },
+  "assets/cacse/ScrollView/TestAdapter.js": {
+    "imports": {
+      "cc": "quick-pack:/cce/internal/x/cc.js",
+      "__unresolved_0": "quick-pack:/cce/internal/code-quality/cr.js",
+      "__unresolved_2": "assets/cacse/ScrollView/TestViewHolder.js",
+      "__unresolved_3": "assets/cacse/ScrollView/TestViewHolder2.js",
+      "__unresolved_1": "assets/cacse/ScrollView/BaseAdapter.js"
+    },
+    "physicalLocation": "fs/0/assets/cacse/ScrollView/TestAdapter.js",
+    "mTimestamp": 1634557875083
+  },
+  "assets/MainScene.js": {
+    "imports": {
+      "cc": "quick-pack:/cce/internal/x/cc.js"
+    },
+    "physicalLocation": "fs/0/assets/MainScene.js",
+    "mTimestamp": 1634557874776
+  },
+  "quick-pack:/cce/internal/x/cc.js": {
+    "imports": {
+      "__unresolved_0": {
+        "external": true,
+        "url": "cce:/internal/x/cc-fu/base"
+      },
+      "__unresolved_1": {
+        "external": true,
+        "url": "cce:/internal/x/cc-fu/gfx-webgl"
+      },
+      "__unresolved_2": {
+        "external": true,
+        "url": "cce:/internal/x/cc-fu/gfx-webgl2"
+      },
+      "__unresolved_3": {
+        "external": true,
+        "url": "cce:/internal/x/cc-fu/3d"
+      },
+      "__unresolved_4": {
+        "external": true,
+        "url": "cce:/internal/x/cc-fu/2d"
+      },
+      "__unresolved_5": {
+        "external": true,
+        "url": "cce:/internal/x/cc-fu/ui"
+      },
+      "__unresolved_6": {
+        "external": true,
+        "url": "cce:/internal/x/cc-fu/particle"
+      },
+      "__unresolved_7": {
+        "external": true,
+        "url": "cce:/internal/x/cc-fu/particle-2d"
+      },
+      "__unresolved_8": {
+        "external": true,
+        "url": "cce:/internal/x/cc-fu/physics-framework"
+      },
+      "__unresolved_9": {
+        "external": true,
+        "url": "cce:/internal/x/cc-fu/physics-2d-framework"
+      },
+      "__unresolved_10": {
+        "external": true,
+        "url": "cce:/internal/x/cc-fu/intersection-2d"
+      },
+      "__unresolved_11": {
+        "external": true,
+        "url": "cce:/internal/x/cc-fu/primitive"
+      },
+      "__unresolved_12": {
+        "external": true,
+        "url": "cce:/internal/x/cc-fu/profiler"
+      },
+      "__unresolved_13": {
+        "external": true,
+        "url": "cce:/internal/x/cc-fu/audio"
+      },
+      "__unresolved_14": {
+        "external": true,
+        "url": "cce:/internal/x/cc-fu/video"
+      },
+      "__unresolved_15": {
+        "external": true,
+        "url": "cce:/internal/x/cc-fu/terrain"
+      },
+      "__unresolved_16": {
+        "external": true,
+        "url": "cce:/internal/x/cc-fu/webview"
+      },
+      "__unresolved_17": {
+        "external": true,
+        "url": "cce:/internal/x/cc-fu/tween"
+      },
+      "__unresolved_18": {
+        "external": true,
+        "url": "cce:/internal/x/cc-fu/tiled-map"
+      },
+      "__unresolved_19": {
+        "external": true,
+        "url": "cce:/internal/x/cc-fu/spine"
+      },
+      "__unresolved_20": {
+        "external": true,
+        "url": "cce:/internal/x/cc-fu/dragon-bones"
+      }
+    },
+    "physicalLocation": "cce/internal/x/cc.js",
+    "mTimestamp": 1634557874549,
+    "isEntry": true,
+    "exposeAs": "cce:/internal/x/cc"
+  },
+  "quick-pack:/cce/internal/x/prerequisite-imports.js": {
+    "imports": {
+      "__unresolved_2": "assets/cacse/ScrollView/BaseViewHolder.js",
+      "__unresolved_0": "assets/MainScene.js",
+      "__unresolved_1": "assets/cacse/ScrollView/BaseAdapter.js",
+      "__unresolved_4": "assets/cacse/ScrollView/ScrollViewScene.js",
+      "__unresolved_6": "assets/cacse/ScrollView/TestViewHolder.js",
+      "__unresolved_7": "assets/cacse/ScrollView/TestViewHolder2.js",
+      "__unresolved_3": "assets/cacse/ScrollView/RecyclerView.js",
+      "__unresolved_5": "assets/cacse/ScrollView/TestAdapter.js"
+    },
+    "physicalLocation": "cce/internal/x/prerequisite-imports.js",
+    "mTimestamp": 1634557874568,
+    "isEntry": true,
+    "exposeAs": "cce:/internal/x/prerequisite-imports"
+  },
+  "quick-pack:/cce/internal/code-quality/cr.js": {
+    "imports": {},
+    "physicalLocation": "cce/internal/code-quality/cr.js",
+    "mTimestamp": 1634557875098
+  }
+}
