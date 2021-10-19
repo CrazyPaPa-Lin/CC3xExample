@@ -39,7 +39,7 @@ export class RecyclerView extends Component {
     private _layout: Layout;
 
 
-    private _view:UITransform;
+    private _view: UITransform;
 
     /**
     * @en No layout.
@@ -75,6 +75,8 @@ export class RecyclerView extends Component {
     private halfScrollView: number = 0;
     /**上一次content的Y值，用于和现在content的Y值比较，得出是向上还是向下滚动 */
     private lastContentPosY: number = 0;
+    /**上一次content的X值，用于和现在content的X值比较，得出是向左还是向右滚动 */
+    private lastContentPosX: number = 0;
     //分帧创建器
     private _gener: Generator
 
@@ -140,9 +142,8 @@ export class RecyclerView extends Component {
             return;
         }
         this.countParam();
-        this.createItems(0, new Vec2(0, this.scrollView.view.height));
+        this.startCreateItems(0);
     }
-
     private countParam() {
         let type = this._layoutType;
         if (type == Layout.Type.VERTICAL) {
@@ -151,8 +152,8 @@ export class RecyclerView extends Component {
             this.updateFun = this.updateV;
         } else if (type == Layout.Type.HORIZONTAL) {
             this.halfScrollView = this.scrollView.view.width / 2;
-            
-
+            this._view.width = this.scrollView.view.width * this.adapter.getItemCount();
+            this.updateFun = this.updateH;
         } else if (type == Layout.Type.GRID) {
             let startAxis = this._startAxis;
         }
@@ -161,9 +162,8 @@ export class RecyclerView extends Component {
     /**
      * 
      * @param startIndex 创建的起始节点
-     * @param offset 创建的偏移量
      */
-    private createItems(startIndex: number, offset: Vec2) {
+    private startCreateItems(startIndex: number) {
         //取消上一次的分帧任务（如果任务正在执行）
         this._gener?.return("");
 
@@ -175,7 +175,9 @@ export class RecyclerView extends Component {
         let maxNum = this.adapter.getItemCount();
         let total = 0;
         if (type == Layout.Type.VERTICAL) {
-            total = Math.abs(offset.y);
+            total = Math.abs(this._view.height);
+        }else if(type == Layout.Type.HORIZONTAL){
+            total = Math.abs(this._view.width)
         }
 
         this._gener = this.getGeneratorLength(total, (i, gener) => {
@@ -202,27 +204,41 @@ export class RecyclerView extends Component {
 
 
             if (type == Layout.Type.VERTICAL) {
-                if (offset.y > 0) {
-                    let bottomY = -this._pdTop;
-                    let lastItem = this._childrens[this._childrens.length - 1];
-                    if (lastItem) {
-                        bottomY = lastItem.node.position.y - lastItem.view.height / 2
-                            - this._spaceY;
-                    }
-                    item.node.position = new Vec3(item.node.position.x,
-                        bottomY - item.view.height / 2);
-                    if (!this.isInWindow(item)) {
-                        this._childrens.push(item);
-                        gener?.return("")
-                        //创建结束
-                        return false;
-                    }
-                    if (i == maxNum - 1) {
-                        this._view.height
-                            = Math.abs(item.node.position.y) + item.view.height / 2 + this._pdBottom;
-                    }
-                } else {
-                    //let top
+                let bottomY = -this._pdTop;
+                let lastItem = this._childrens[this._childrens.length - 1];
+                if (lastItem) {
+                    bottomY = lastItem.node.position.y - lastItem.view.height / 2
+                        - this._spaceY;
+                }
+                item.node.position = new Vec3(item.node.position.x,
+                    bottomY - item.view.height / 2);
+                if (!this.isInWindow(item)) {
+                    this._childrens.push(item);
+                    gener?.return("")
+                    //创建结束
+                    return false;
+                }
+                if (i == maxNum - 1) {
+                    this._view.height
+                        = Math.abs(item.node.position.y) + item.view.height / 2 + this._pdBottom;
+                }
+            } else if (type == Layout.Type.HORIZONTAL) {
+                let leftX = this._pdLeft;
+                let lastItem = this._childrens[this._childrens.length - 1];
+                if (lastItem) {
+                    leftX = lastItem.node.position.x + lastItem.view.width / 2
+                        + this._spaceX;
+                }
+                item.node.position = new Vec3(leftX + item.view.width / 2,
+                    item.node.position.y);
+                if (!this.isInWindow(item)) {
+                    this._childrens.push(item);
+                    gener?.return("")
+                    return false;
+                }
+                if (i == maxNum - 1) {
+                    this._view.width
+                        = Math.abs(item.node.position.x) + item.view.width / 2 + this._pdRight;
                 }
             }
             this._childrens.push(item);
@@ -257,28 +273,42 @@ export class RecyclerView extends Component {
                     bottomY = lastItem.node.position.y - lastItem.view.height / 2
                         - this._spaceY;
                 }
-                item.node.position = new Vec3(0,
+                item.node.position = new Vec3(item.node.position.x,
                     bottomY - item.view.height / 2);
                 if (index == this.adapter.getItemCount() - 1) {
                     this._view.height
                         = Math.abs(item.node.position.y) + item.view.height / 2 + this._pdBottom;
                 }
+            }else if(type == Layout.Type.HORIZONTAL){
+                let leftX = this._pdLeft;
+                let lastItem = this._childrens[this._childrens.length - 1];
+                if (lastItem) {
+                    leftX = lastItem.node.position.x + lastItem.view.width / 2
+                        + this._spaceX;
+                }
+                item.node.position = new Vec3(leftX + item.view.width / 2,
+                    item.node.position.y);
+                if (index == this.adapter.getItemCount() - 1) {
+                    this._view.width
+                        = Math.abs(item.node.position.x) + item.view.width / 2 + this._pdRight;
+                }
             }
+
             this._childrens.push(item);
             this.createNextItem();
         }
     }
 
-    private createPreviousItem(){
+    private createPreviousItem() {
         let firstItem = this._childrens[0];
-        if(!firstItem){
+        if (!firstItem) {
             return
         }
         let index = firstItem.itemIndex - 1;
-        if(index < 0){
+        if (index < 0) {
             return
         }
-        if(this.isInWindow(firstItem)){
+        if (this.isInWindow(firstItem)) {
             let item: BaseViewHolder;
             let type = this._layoutType;
             let itemType = this.adapter.getType(index);
@@ -289,7 +319,10 @@ export class RecyclerView extends Component {
 
             if (type == Layout.Type.VERTICAL) {
                 let topY = firstItem.node.position.y + firstItem.view.height / 2 + this._spaceY;
-                item.node.position = new Vec3(0,topY+item.view.height / 2);
+                item.node.position = new Vec3(item.node.position.x, topY + item.view.height / 2);
+            }else if(type == Layout.Type.HORIZONTAL){
+                let leftX = firstItem.node.position.x - firstItem.view.width / 2 - this._spaceX;
+                item.node.position = new Vec3(leftX - item.view.width / 2,item.node.position.y);
             }
             this._childrens.unshift(item);
             this.createPreviousItem();
@@ -303,6 +336,11 @@ export class RecyclerView extends Component {
         if (type == Layout.Type.VERTICAL) {
             if (point.y - item.view.height / 2 > this.halfScrollView
                 || point.y + item.view.height / 2 < -this.halfScrollView) {
+                return false;
+            }
+        } else if (type == Layout.Type.HORIZONTAL) {
+            if (point.x + item.view.width / 2 < -this.halfScrollView
+                || point.x - item.view.width / 2 > this.halfScrollView) {
                 return false;
             }
         }
@@ -349,7 +387,7 @@ export class RecyclerView extends Component {
         for (let i = 0; i < childs.length; ++i) {
             let item = childs[i];
             let viewPos = this.getPositionInView(item);
-            if(childs.length <= 1){
+            if (childs.length <= 1) {
                 //必须要剩一个 不然就全部被删除了
                 break
             }
@@ -357,13 +395,13 @@ export class RecyclerView extends Component {
                 //如果item超过上边界 那么就移除
                 if (viewPos.y - item.view.height / 2 > this.halfScrollView) {
                     this.removeItem(item);
-                    childs.splice(i,1);
+                    childs.splice(i, 1);
                     i--;
                 }
             } else {
                 if (viewPos.y + item.view.height / 2 < -this.halfScrollView) {
                     this.removeItem(item);
-                    childs.splice(i,1);
+                    childs.splice(i, 1);
                     i--;
                 }
             }
@@ -372,13 +410,46 @@ export class RecyclerView extends Component {
         if (isUp) {
             //创建下一个
             this.createNextItem();
-        }else{
+        } else {
             //创建上一个
             this.createPreviousItem();
         }
         this.lastContentPosY = this._layout.node.position.y;
     }
 
+    public updateH() {
+        let isLeft = this._layout.node.position.x < this.lastContentPosX;
+        let childs = this._childrens;
+        for (let i = 0; i < childs.length; ++i) {
+            let item = childs[i];
+            let viewPos = this.getPositionInView(item);
+            if (childs.length <= 1) {
+                break
+            }
+            if (isLeft) {
+                //如果item超过左边界 那么就移除
+                if (viewPos.x + item.view.width / 2 < -this.halfScrollView) {
+                    this.removeItem(item);
+                    childs.splice(i, 1);
+                    i--;
+                }
+            } else {
+                if (viewPos.x - item.view.width / 2 > this.halfScrollView) {
+                    this.removeItem(item);
+                    childs.splice(i, 1);
+                    i--;
+                }
+            }
+        }
+        if (isLeft) {
+            //创建下一个
+            this.createNextItem();
+        } else {
+            //创建上一个
+            this.createPreviousItem();
+        }
+        this.lastContentPosX = this._layout.node.position.x;
+    }
 
 
     /**是否滚动容器 */

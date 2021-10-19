@@ -2,12 +2,12 @@
   "ver": "1.1.32",
   "importer": "prefab",
   "imported": true,
-  "uuid": "83ada0b1-84c8-4403-8f66-988bd4b6d779",
+  "uuid": "e73170e7-a15a-4165-be8c-ca6592d7bc10",
   "files": [
     ".json"
   ],
   "subMetas": {},
   "userData": {
-    "syncNodeName": "testNode2"
+    "syncNodeName": "HorizontalP2"
   }
 }
