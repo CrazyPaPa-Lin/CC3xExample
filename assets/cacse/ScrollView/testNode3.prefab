@@ -12,7 +12,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "testNode2",
+    "_name": "testNode3",
     "_objFlags": 0,
     "_parent": null,
     "_children": [
@@ -127,8 +127,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1280,
-      "height": 80
+      "width": 880,
+      "height": 140
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -158,9 +158,9 @@
     "_dstBlendFactor": 4,
     "_color": {
       "__type__": "cc.Color",
-      "r": 99,
-      "g": 54,
-      "b": 54,
+      "r": 61,
+      "g": 51,
+      "b": 51,
       "a": 255
     },
     "_spriteFrame": {
@@ -373,8 +373,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1280,
-      "height": 80
+      "width": 880,
+      "height": 140
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -400,8 +400,8 @@
     },
     "_alignFlags": 40,
     "_target": null,
-    "_left": 0,
-    "_right": 0,
+    "_left": 200,
+    "_right": 200,
     "_top": 0,
     "_bottom": 0,
     "_horizontalCenter": 0,

@@ -27,6 +27,9 @@ export class TestAdapter extends BaseAdapter {
     @property(Prefab)
     testNode2:Prefab = null;
 
+    @property(Prefab)
+    testNode3:Prefab = null;
+
     getItemCount(): number {
         return 100;
     }
@@ -36,11 +39,14 @@ export class TestAdapter extends BaseAdapter {
         let holder;
         if(type == 0){
             let node = instantiate(this.testNode1);
-            node.active = true;
+      
             holder = new TestViewHolder(node);
         }else if(type == 1){
             let node = instantiate(this.testNode2);
-            node.active = true;
+    
+            holder = new TestViewHolder2(node);
+        }else if(type == 2){
+            let node = instantiate(this.testNode3);
             holder = new TestViewHolder2(node);
         }
         return holder;
@@ -49,7 +55,7 @@ export class TestAdapter extends BaseAdapter {
         holder.onBind(index);
     }
     getType(index: number): number {
-        return index % 2;
+        return index % 3;
     }
 }
 

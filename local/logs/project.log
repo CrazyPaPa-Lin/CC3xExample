@@ -62,3 +62,4 @@
 2021-10-19 14:15:15-info: [Scene] Forward render pipeline initialized.
 2021-10-19 14:15:15-log: [Scene] openEngine end
 2021-10-19 14:15:15-log: [Scene] configureEngine end
+2021-10-19 14:41:47-error: [preview-error]Uncaught TypeError: The thing you want to instantiate is nil in http://localhost:7456/scripting/polyfills/bundle.js
