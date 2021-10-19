@@ -1,5 +1,5 @@
 
-import { _decorator, Component, Node, instantiate } from 'cc';
+import { _decorator, Component, Node, instantiate, Prefab } from 'cc';
 import { BaseAdapter } from './BaseAdapter';
 import { BaseViewHolder } from './BaseViewHolder';
 import { TestViewHolder } from './TestViewHolder';
@@ -21,11 +21,11 @@ const { ccclass, property } = _decorator;
 @ccclass('TestAdapter')
 export class TestAdapter extends BaseAdapter {
 
-    @property(Node)
-    testNode1:Node = null;
+    @property(Prefab)
+    testNode1:Prefab = null;
 
-    @property(Node)
-    testNode2:Node = null;
+    @property(Prefab)
+    testNode2:Prefab = null;
 
     getItemCount(): number {
         return 100;

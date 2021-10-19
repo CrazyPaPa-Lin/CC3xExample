@@ -38,6 +38,9 @@ export class RecyclerView extends Component {
 
     private _layout: Layout;
 
+
+    private _view:UITransform;
+
     /**
     * @en No layout.
     * NONE = 0,
@@ -100,7 +103,7 @@ export class RecyclerView extends Component {
         //取消布局约束
         layout.type = Layout.Type.NONE;
         this._layout = layout;
-
+        this._view = layout.getComponent(UITransform);
         this.reset();
         this.node.on(Node.EventType.SIZE_CHANGED, this.sizeChanged, this);
         this.scrollView.node.on(ScrollView.EventType.SCROLLING, this.onScrolling, this);
@@ -144,9 +147,11 @@ export class RecyclerView extends Component {
         let type = this._layoutType;
         if (type == Layout.Type.VERTICAL) {
             this.halfScrollView = this.scrollView.view.height / 2;
-            this._layout.getComponent(UITransform).height = this.scrollView.view.height * this.adapter.getItemCount();
+            this._view.height = this.scrollView.view.height * this.adapter.getItemCount();
             this.updateFun = this.updateV;
         } else if (type == Layout.Type.HORIZONTAL) {
+            this.halfScrollView = this.scrollView.view.width / 2;
+            
 
         } else if (type == Layout.Type.GRID) {
             let startAxis = this._startAxis;
@@ -181,14 +186,6 @@ export class RecyclerView extends Component {
 
 
             let index = startIndex + i;
-            // if (type == Layout.Type.VERTICAL) {
-            //     if (offset.y > 0) {
-            //         index += 1;
-            //     } else {
-            //         index -= 1;
-            //     }
-            // }
-
             if (index >= maxNum) {
                 //超出范围 则直接退出
                 gener?.return("")
@@ -212,7 +209,7 @@ export class RecyclerView extends Component {
                         bottomY = lastItem.node.position.y - lastItem.view.height / 2
                             - this._spaceY;
                     }
-                    item.node.position = new Vec3(0,
+                    item.node.position = new Vec3(item.node.position.x,
                         bottomY - item.view.height / 2);
                     if (!this.isInWindow(item)) {
                         this._childrens.push(item);
@@ -221,7 +218,7 @@ export class RecyclerView extends Component {
                         return false;
                     }
                     if (i == maxNum - 1) {
-                        this._layout.node.getComponent(UITransform).height
+                        this._view.height
                             = Math.abs(item.node.position.y) + item.view.height / 2 + this._pdBottom;
                     }
                 } else {
@@ -263,7 +260,7 @@ export class RecyclerView extends Component {
                 item.node.position = new Vec3(0,
                     bottomY - item.view.height / 2);
                 if (index == this.adapter.getItemCount() - 1) {
-                    this._layout.node.getComponent(UITransform).height
+                    this._view.height
                         = Math.abs(item.node.position.y) + item.view.height / 2 + this._pdBottom;
                 }
             }
@@ -314,7 +311,7 @@ export class RecyclerView extends Component {
 
     /**获取item在scrollView的局部坐标 */
     private getPositionInView(item: BaseViewHolder): Vec3 {
-        let worldPos = this._layout.node.getComponent(UITransform).convertToWorldSpaceAR(item.node.position);
+        let worldPos = this._view.convertToWorldSpaceAR(item.node.position);
         let viewPos = this.scrollView.view.convertToNodeSpaceAR(worldPos);
         return viewPos;
     }
