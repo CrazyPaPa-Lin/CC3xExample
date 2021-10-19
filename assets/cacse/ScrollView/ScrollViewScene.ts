@@ -1,8 +1,6 @@
 
-import { _decorator, Component, Node } from 'cc';
-import { RecyclerView } from './RecyclerView';
-import { TestAdapter } from './TestAdapter';
-const { ccclass, property } = _decorator;
+import { _decorator, Component, Node, director } from 'cc';
+const { ccclass } = _decorator;
 
 /**
  * Predefined variables
@@ -15,25 +13,21 @@ const { ccclass, property } = _decorator;
  * ManualUrl = https://docs.cocos.com/creator/3.3/manual/zh/
  *
  */
- 
+
 @ccclass('ScrollViewScene')
 export class ScrollViewScene extends Component {
 
-    @property(RecyclerView)
-    recyclerView:RecyclerView = null;
+    onClickHorizontalTest(){
+        director.loadScene('HorizontalTest', function () {
 
-    @property(TestAdapter)
-    adapter:TestAdapter = null;
-
-    start () {
-        // [3]
-
-        this.recyclerView.adapter = this.adapter;
+        });
     }
 
-    // update (deltaTime: number) {
-    //     // [4]
-    // }
+    onClickVerticalTest(){
+        director.loadScene('VerticalTest', function () {
+
+        });
+    }
 }
 
 /**
