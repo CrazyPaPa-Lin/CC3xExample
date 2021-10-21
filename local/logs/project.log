@@ -1,98 +1,68 @@
-2021-10-19 14:15:07-log: [Package] menu@1.0.0 enable
-2021-10-19 14:15:07-log: [Package] profile@1.0.0 enable
-2021-10-19 14:15:07-log: [Package] messages@1.0.0 enable
-2021-10-19 14:15:07-log: [Package] program@1.0.0 enable
-2021-10-19 14:15:07-log: [Package] device@1.0.1 enable
-2021-10-19 14:15:07-log: [Package] ui-kit@1.0.1 enable
-2021-10-19 14:15:07-log: [Package] tester@1.0.0 enable
-2021-10-19 14:15:07-log: [Package] preferences@1.0.0 enable
-2021-10-19 14:15:07-log: Setup mods mgr.: 219.27ms
-2021-10-19 14:15:07-log: [Package] engine@1.0.5 enable
-2021-10-19 14:15:09-log: [Package] programming@1.0.0 enable
-2021-10-19 14:15:09-log: [Package] asset-db@1.0.0 enable
-2021-10-19 14:15:09-log: [Package] console@1.0.0 enable
-2021-10-19 14:15:10-log: [Package] scene@1.0.0 enable
-2021-10-19 14:15:10-log: [Package] utils@1.0.0 enable
-2021-10-19 14:15:10-log: [Package] assets@1.0.0 enable
-2021-10-19 14:15:10-log: [Package] inspector@1.0.0 enable
-2021-10-19 14:15:10-log: [Package] hierarchy@1.0.0 enable
-2021-10-19 14:15:11-log: [Package] preview@1.0.1 enable
-2021-10-19 14:15:11-log: [Package] animator@1.0.0 enable
-2021-10-19 14:15:12-log: [Package] builder@1.2.9 enable
-2021-10-19 14:15:12-log: [Package] node-library@1.0.0 enable
-2021-10-19 14:15:12-log: [Package] shortcuts@1.0.1 enable
-2021-10-19 14:15:12-log: [Package] package-asset@1.0.0 enable
-2021-10-19 14:15:12-log: [Package] reference-image@1.0.0 enable
-2021-10-19 14:15:12-log: [Package] channel-upload-tools@1.0.0 enable
-2021-10-19 14:15:12-log: [Package] runtime-dev-tools@1.0.0 enable
-2021-10-19 14:15:12-log: [Package] alipay-mini-game@1.0.0 enable
-2021-10-19 14:15:12-log: [Package] android@1.0.0 enable
-2021-10-19 14:15:12-log: [Package] baidu-mini-game@1.0.0 enable
-2021-10-19 14:15:12-log: [Package] bytedance-mini-game@1.0.1 enable
-2021-10-19 14:15:12-log: [Package] huawei-agc@1.0.0 enable
-2021-10-19 14:15:12-log: [Package] ios@1.0.0 enable
-2021-10-19 14:15:12-log: [Package] ios-app-clip@1.0.0 enable
-2021-10-19 14:15:12-log: [Package] mac@1.0.0 enable
-2021-10-19 14:15:12-log: [Package] native@1.0.0 enable
-2021-10-19 14:15:12-log: [Package] ohos@1.0.0 enable
-2021-10-19 14:15:12-log: [Package] web-desktop@1.0.0 enable
-2021-10-19 14:15:12-log: [Package] web-mobile@1.0.0 enable
-2021-10-19 14:15:12-log: [Package] wechatgame@1.0.1 enable
-2021-10-19 14:15:12-log: [Package] windows@1.0.0 enable
-2021-10-19 14:15:12-log: [Package] xiaomi-quick-game@1.0.0 enable
-2021-10-19 14:15:12-log: [Package] cocos-play@1.0.0 enable
-2021-10-19 14:15:12-log: [Package] huawei-quick-game@1.0.0 enable
-2021-10-19 14:15:12-log: [Package] link-sure@1.0.0 enable
-2021-10-19 14:15:12-log: [Package] oppo-mini-game@1.0.0 enable
-2021-10-19 14:15:12-log: [Package] qtt@1.0.0 enable
-2021-10-19 14:15:12-log: [Package] vivo-mini-game@1.0.0 enable
-2021-10-19 14:15:13-log: [Package] cocos-service@3.0.1 enable
-2021-10-19 14:15:13-log: [Package] importer@1.0.0 enable
-2021-10-19 14:15:13-log: [Package] extension@3.0.10 enable
-2021-10-19 14:15:13-log: [Im-plugin] Check im-plugin version.
-2021-10-19 14:15:13-log: [Package] im-plugin@3.0.7 enable
-2021-10-19 14:15:14-log: [Package] lightmap@1.0.3 enable
-2021-10-19 14:15:15-log: [Scene] begin init
-2021-10-19 14:15:15-log: [Scene] require engine end
-2021-10-19 14:15:15-log: [Scene] Serialize end
-2021-10-19 14:15:15-log: [Scene] configureStartup end
-2021-10-19 14:15:15-info: [Scene] WebGL2 device initialized.
-2021-10-19 14:15:15-log: [Scene] Cocos Creator v3.3.2
-2021-10-19 14:15:15-log: [Im-plugin] No online info of im-plugin.
-2021-10-19 14:15:15-info: [Scene] Forward render pipeline initialized.
-2021-10-19 14:15:15-log: [Scene] openEngine end
-2021-10-19 14:15:15-log: [Scene] configureEngine end
-2021-10-19 14:41:47-error: [preview-error]Uncaught TypeError: The thing you want to instantiate is nil in http://localhost:7456/scripting/polyfills/bundle.js
-2021-10-19 15:30:16-error: [Scene] The Asset used by component "TestAdapter" in scene "ScrollView" is missing. Detailed information:
-Asset url: "db://assets/cacse/ScrollView/ScrollView"
-Missing uuid: "83ada0b1-84c8-4403-8f66-988bd4b6d779"
-
-2021-10-19 15:30:16-error: [Scene] The Asset used by component "TestAdapter" in scene "ScrollView" is missing. Detailed information:
-Asset url: "db://assets/cacse/ScrollView/ScrollView"
-Missing uuid: "8d1978ab-5923-4972-9081-5b0b2c3edf5a"
-
-2021-10-19 15:30:16-error: [Scene] The Asset used by component "TestAdapter" in scene "ScrollView" is missing. Detailed information:
-Asset url: "db://assets/cacse/ScrollView/ScrollView"
-Missing uuid: "83ada0b1-84c8-4403-8f66-988bd4b6d779"
-
-2021-10-19 15:30:16-error: [Scene] The Asset used by component "TestAdapter" in scene "ScrollView" is missing. Detailed information:
-Asset url: "db://assets/cacse/ScrollView/ScrollView"
-Missing uuid: "8d1978ab-5923-4972-9081-5b0b2c3edf5a"
-
-2021-10-19 16:12:52-error: [Scene] The Asset used by component "TestAdapter" in scene "ScrollView" is missing. Detailed information:
-Asset url: "db://assets/cacse/ScrollView/ScrollView"
-Missing uuid: "83ada0b1-84c8-4403-8f66-988bd4b6d779"
-
-2021-10-19 16:12:52-error: [Scene] The Asset used by component "TestAdapter" in scene "ScrollView" is missing. Detailed information:
-Asset url: "db://assets/cacse/ScrollView/ScrollView"
-Missing uuid: "8d1978ab-5923-4972-9081-5b0b2c3edf5a"
-
-2021-10-19 16:12:52-error: [Scene] The Asset used by component "TestAdapter" in scene "ScrollView" is missing. Detailed information:
-Asset url: "db://assets/cacse/ScrollView/ScrollView"
-Missing uuid: "83ada0b1-84c8-4403-8f66-988bd4b6d779"
-
-2021-10-19 16:12:52-error: [Scene] The Asset used by component "TestAdapter" in scene "ScrollView" is missing. Detailed information:
-Asset url: "db://assets/cacse/ScrollView/ScrollView"
-Missing uuid: "8d1978ab-5923-4972-9081-5b0b2c3edf5a"
-
-2021-10-19 16:19:23-error: [Window] null
+2021-10-21 19:20:12-log: [Package] menu@1.0.0 enable
+2021-10-21 19:20:12-log: [Package] profile@1.0.0 enable
+2021-10-21 19:20:12-log: [Package] messages@1.0.0 enable
+2021-10-21 19:20:12-log: [Package] program@1.0.0 enable
+2021-10-21 19:20:12-log: [Package] device@1.0.1 enable
+2021-10-21 19:20:13-log: [Package] ui-kit@1.0.1 enable
+2021-10-21 19:20:13-log: [Package] tester@1.0.0 enable
+2021-10-21 19:20:13-log: [Package] preferences@1.0.0 enable
+2021-10-21 19:20:13-log: Setup mods mgr.: 682.89ms
+2021-10-21 19:20:14-log: [Package] engine@1.0.5 enable
+2021-10-21 19:20:17-log: [Package] programming@1.0.0 enable
+2021-10-21 19:20:17-log: [Package] asset-db@1.0.0 enable
+2021-10-21 19:20:17-log: [Package] console@1.0.0 enable
+2021-10-21 19:20:17-log: [Package] scene@1.0.0 enable
+2021-10-21 19:20:17-log: [Package] project@1.0.1 enable
+2021-10-21 19:20:17-log: [Package] about@1.0.0 enable
+2021-10-21 19:20:17-log: [Package] server@1.0.0 enable
+2021-10-21 19:20:17-log: [Package] assets@1.0.0 enable
+2021-10-21 19:20:17-log: [Package] inspector@1.0.0 enable
+2021-10-21 19:20:17-log: [Package] hierarchy@1.0.0 enable
+2021-10-21 19:20:19-log: [Package] preview@1.0.1 enable
+2021-10-21 19:20:19-log: [Package] animator@1.0.0 enable
+2021-10-21 19:20:20-log: [Package] builder@1.2.9 enable
+2021-10-21 19:20:20-log: [Package] node-library@1.0.0 enable
+2021-10-21 19:20:20-log: [Package] shortcuts@1.0.1 enable
+2021-10-21 19:20:20-log: [Package] package-asset@1.0.0 enable
+2021-10-21 19:20:20-log: [Package] reference-image@1.0.0 enable
+2021-10-21 19:20:20-log: [Package] channel-upload-tools@1.0.0 enable
+2021-10-21 19:20:20-log: [Package] runtime-dev-tools@1.0.0 enable
+2021-10-21 19:20:20-log: [Package] alipay-mini-game@1.0.0 enable
+2021-10-21 19:20:20-log: [Package] android@1.0.0 enable
+2021-10-21 19:20:20-log: [Package] baidu-mini-game@1.0.0 enable
+2021-10-21 19:20:20-log: [Package] bytedance-mini-game@1.0.1 enable
+2021-10-21 19:20:20-log: [Package] huawei-agc@1.0.0 enable
+2021-10-21 19:20:20-log: [Package] ios@1.0.0 enable
+2021-10-21 19:20:20-log: [Package] ios-app-clip@1.0.0 enable
+2021-10-21 19:20:20-log: [Package] mac@1.0.0 enable
+2021-10-21 19:20:20-log: [Package] native@1.0.0 enable
+2021-10-21 19:20:20-log: [Package] ohos@1.0.0 enable
+2021-10-21 19:20:20-log: [Package] web-desktop@1.0.0 enable
+2021-10-21 19:20:20-log: [Package] web-mobile@1.0.0 enable
+2021-10-21 19:20:20-log: [Package] wechatgame@1.0.1 enable
+2021-10-21 19:20:20-log: [Package] windows@1.0.0 enable
+2021-10-21 19:20:20-log: [Package] xiaomi-quick-game@1.0.0 enable
+2021-10-21 19:20:20-log: [Package] cocos-play@1.0.0 enable
+2021-10-21 19:20:20-log: [Package] huawei-quick-game@1.0.0 enable
+2021-10-21 19:20:20-log: [Package] link-sure@1.0.0 enable
+2021-10-21 19:20:21-log: [Package] oppo-mini-game@1.0.0 enable
+2021-10-21 19:20:21-log: [Package] qtt@1.0.0 enable
+2021-10-21 19:20:21-log: [Package] vivo-mini-game@1.0.0 enable
+2021-10-21 19:20:21-log: [Package] cocos-service@3.0.1 enable
+2021-10-21 19:20:21-log: [Package] importer@1.0.0 enable
+2021-10-21 19:20:21-log: [Package] extension@3.0.10 enable
+2021-10-21 19:20:22-log: [Im-plugin] Check im-plugin version.
+2021-10-21 19:20:22-log: [Package] im-plugin@3.0.7 enable
+2021-10-21 19:20:22-log: [Package] lightmap@1.0.3 enable
+2021-10-21 19:20:23-log: [Im-plugin] No online info of im-plugin.
+2021-10-21 19:20:31-log: [Scene] begin init
+2021-10-21 19:20:31-log: [Scene] require engine end
+2021-10-21 19:20:31-log: [Scene] Serialize end
+2021-10-21 19:20:31-log: [Scene] configureStartup end
+2021-10-21 19:20:31-info: [Scene] WebGL2 device initialized.
+2021-10-21 19:20:31-log: [Scene] Cocos Creator v3.3.2
+2021-10-21 19:20:31-info: [Scene] Forward render pipeline initialized.
+2021-10-21 19:20:32-log: [Scene] openEngine end
+2021-10-21 19:20:32-log: [Scene] configureEngine end
+2021-10-21 20:00:26-error: getImSetting failed
+2021-10-21 20:07:42-warn: [Scene] can't find node in current scene: 74kbAX3axPq7aspiDSiIXe

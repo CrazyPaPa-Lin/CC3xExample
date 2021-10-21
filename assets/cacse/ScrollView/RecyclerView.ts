@@ -20,7 +20,6 @@ const { ccclass, property, requireComponent } = _decorator;
 @requireComponent(ScrollView)
 export class RecyclerView extends Component {
 
-
     private _adapter: BaseAdapter = null;
     public set adapter(v: BaseAdapter) {
         this._adapter = v;
@@ -101,7 +100,7 @@ export class RecyclerView extends Component {
         this._pdBottom = layout.paddingBottom;
         this._spaceX = layout.spacingX;
         this._spaceY = layout.spacingY;
-        this._startAxis = layout.startAxis;
+        this._startAxis = layout.startAxis; //HORIZONTAL = 0, VERTICAL = 1
         //取消布局约束
         layout.type = Layout.Type.NONE;
         this._layout = layout;
@@ -156,6 +155,24 @@ export class RecyclerView extends Component {
             this.updateFun = this.updateH;
         } else if (type == Layout.Type.GRID) {
             let startAxis = this._startAxis;
+            /**
+             * @en The horizontal axis.
+             * HORIZONTAL = 0,
+             * @zh 进行水平方向布局。
+             */
+
+            /**
+             * @en The vertical axis.
+             * VERTICAL = 1
+             * @zh 进行垂直方向布局。
+             */
+            if (startAxis == 0) {
+
+            } else if (startAxis == 1) {
+                this.halfScrollView = this.scrollView.view.height / 2;
+                this._view.height = this.scrollView.view.height * this.adapter.getItemCount();
+                this.updateFun = this.updateGridV;
+            }
         }
     }
 
@@ -176,8 +193,14 @@ export class RecyclerView extends Component {
         let total = 0;
         if (type == Layout.Type.VERTICAL) {
             total = Math.abs(this._view.height);
-        }else if(type == Layout.Type.HORIZONTAL){
+        } else if (type == Layout.Type.HORIZONTAL) {
             total = Math.abs(this._view.width)
+        } else if (type == Layout.Type.GRID) {
+            if (this._startAxis == 0) {
+
+            } else if (this._startAxis == 1) {
+                total = Math.abs(this._view.height);
+            }
         }
 
         this._gener = this.getGeneratorLength(total, (i, gener) => {
@@ -228,6 +251,7 @@ export class RecyclerView extends Component {
                 if (lastItem) {
                     leftX = lastItem.node.position.x + lastItem.view.width / 2
                         + this._spaceX;
+
                 }
                 item.node.position = new Vec3(leftX + item.view.width / 2,
                     item.node.position.y);
@@ -240,7 +264,53 @@ export class RecyclerView extends Component {
                     this._view.width
                         = Math.abs(item.node.position.x) + item.view.width / 2 + this._pdRight;
                 }
+            } else if (type == Layout.Type.GRID) {
+                let startAxis = this._startAxis;
+
+                if (startAxis == 0) {
+                    //水平
+                } else if (startAxis == 1) {
+                    //垂直
+                    let lastItem = this._childrens[this._childrens.length - 1];
+                    //获取同一级最低节点
+                    if (lastItem) {
+                        //最后一个节点的 当前节点是否超出 当前宽度
+                        if (this.isInGrid(lastItem, item)) {
+                            //可以容纳在一个网格内
+                            let topY = lastItem.node.position.y + lastItem.view.height / 2;
+                            let x = lastItem.node.position.x + lastItem.view.width / 2 + this._spaceX + item.view.width / 2;
+                            item.node.position = new Vec3(x, topY - item.view.height / 2);
+                            item.gIndex = lastItem.gIndex;
+                        } else {
+                            //不可以容纳在一个网格内
+                            //获取当前节点高度最高的节点
+                            let zIndex = lastItem.gIndex;
+                            let maxHeightItem = this.getMaxItem(zIndex);
+                            let topY = maxHeightItem.node.position.y - maxHeightItem.view.height / 2;
+                            let x = -this._view.anchorX * this._view.width + this._pdLeft + item.view.width / 2;
+                            item.node.position = new Vec3(x, topY - item.view.height / 2 - this._spaceY);
+                            item.gIndex = maxHeightItem.gIndex + 1;
+                        }
+                    } else {
+                        let topY = -this._pdTop;
+                        let x = -this._view.anchorX * this._view.width + this._pdLeft + item.view.width / 2;
+                        item.node.position = new Vec3(x, topY - item.view.height / 2);
+                        item.gIndex = 0;
+                    }
+
+                    if (i == maxNum - 1) {
+                        let maxHeightItem = this.getMaxItem(item.gIndex);
+                        this._view.height
+                            = Math.abs(maxHeightItem.node.position.y) + maxHeightItem.view.height / 2 + this._pdBottom;
+                    }
+                }
+                if (!this.isInWindow(item)) {
+                    this._childrens.push(item);
+                    gener?.return("")
+                    return false;
+                }
             }
+
             this._childrens.push(item);
             return true;
         }, this._gener)
@@ -279,7 +349,7 @@ export class RecyclerView extends Component {
                     this._view.height
                         = Math.abs(item.node.position.y) + item.view.height / 2 + this._pdBottom;
                 }
-            }else if(type == Layout.Type.HORIZONTAL){
+            } else if (type == Layout.Type.HORIZONTAL) {
                 let leftX = this._pdLeft;
                 let lastItem = this._childrens[this._childrens.length - 1];
                 if (lastItem) {
@@ -291,6 +361,36 @@ export class RecyclerView extends Component {
                 if (index == this.adapter.getItemCount() - 1) {
                     this._view.width
                         = Math.abs(item.node.position.x) + item.view.width / 2 + this._pdRight;
+                }
+            } else if (type == Layout.Type.GRID) {
+                if (this._startAxis == 0) {
+
+                } else if (this._startAxis == 1) {
+                    let lastItem = this._childrens[this._childrens.length - 1];
+                    if (lastItem) {
+                        if (this.isInGrid(lastItem, item)) {
+                            //可以容纳在一个网格内
+                            let topY = lastItem.node.position.y + lastItem.view.height / 2;
+                            let x = lastItem.node.position.x + lastItem.view.width / 2 + this._spaceX + item.view.width / 2;
+                            item.node.position = new Vec3(x, topY - item.view.height / 2);
+                            item.gIndex = lastItem.gIndex;
+                        } else {
+                            //不可以容纳在一个网格内
+                            //获取当前节点高度最高的节点
+                            let zIndex = lastItem.gIndex;
+                            let maxHeightItem = this.getMaxItem(zIndex);
+                            let topY = maxHeightItem.node.position.y - maxHeightItem.view.height / 2;
+                            let x = -this._view.anchorX * this._view.width + this._pdLeft + item.view.width / 2;
+                            item.node.position = new Vec3(x, topY - item.view.height / 2 - this._spaceY);
+                            item.gIndex = maxHeightItem.gIndex + 1;
+                        }
+                    }
+                    if (index == this.adapter.getItemCount() - 1) {
+                        let maxHeightItem = this.getMaxItem(item.gIndex);
+                        maxHeightItem = maxHeightItem ? maxHeightItem : item;
+                        this._view.height
+                            = Math.abs(maxHeightItem.node.position.y) + maxHeightItem.view.height / 2 + this._pdBottom;
+                    }
                 }
             }
 
@@ -320,19 +420,86 @@ export class RecyclerView extends Component {
             if (type == Layout.Type.VERTICAL) {
                 let topY = firstItem.node.position.y + firstItem.view.height / 2 + this._spaceY;
                 item.node.position = new Vec3(item.node.position.x, topY + item.view.height / 2);
-            }else if(type == Layout.Type.HORIZONTAL){
+            } else if (type == Layout.Type.HORIZONTAL) {
                 let leftX = firstItem.node.position.x - firstItem.view.width / 2 - this._spaceX;
-                item.node.position = new Vec3(leftX - item.view.width / 2,item.node.position.y);
+                item.node.position = new Vec3(leftX - item.view.width / 2, item.node.position.y);
             }
             this._childrens.unshift(item);
             this.createPreviousItem();
         }
     }
 
+    private createGrildPreviousItem() {
+        let firstItem = this._childrens[0];
+        if (!firstItem) {
+            return
+        }
+        let index = firstItem.itemIndex - 1;
+        if (index < 0) {
+            return
+        }
+
+        let maxItem = this.getMaxItem(firstItem.gIndex);
+        if (this.isInWindow(maxItem)) {
+            let items: Array<BaseViewHolder> = [];
+            this.createGrildItems(index, maxItem.gIndex - 1, null, items);
+            let length = items.length;
+
+            let maxHeight = 0;
+            for (let i = 0; i < length; ++i) {
+                if (items[i].view.height > maxHeight) {
+                    maxHeight = items[i].view.height;
+                }
+                this._childrens.unshift(items[i]);
+            }
+
+            let topY = firstItem.node.position.y + firstItem.view.height / 2 + this._spaceY + maxHeight;
+            let leftItem: BaseViewHolder = null;
+            for (let i = length - 1; i >= 0; i--) {
+                let item: BaseViewHolder = items[i];
+                if (leftItem) {
+                    let x = leftItem.node.position.x + leftItem.view.width / 2 + this._spaceX + item.view.width / 2;
+                    item.node.position = new Vec3(x, topY - item.view.height / 2);
+                } else {
+                    let x = -this._view.anchorX * this._view.width + this._pdLeft + item.view.width / 2;
+                    item.node.position = new Vec3(x, topY - item.view.height / 2);
+                }
+                leftItem = item;
+            }
+            this.createGrildPreviousItem();
+        }
+    }
+
+    private createGrildItems(index: number, gIndex: number, rightItem: BaseViewHolder, items) {
+        if (index < 0) {
+            return
+        }
+        let item: BaseViewHolder;
+        let itemType = this.adapter.getType(index);
+        item = this.getItem(itemType, index);
+        item.itemIndex = index;
+        item.gIndex = gIndex;
+        let limitW = this._view.anchorX * this._view.width;
+        if (rightItem) {
+            if (rightItem.node.position.x - rightItem.view.width / 2 - this._spaceX - item.view.width - this._pdLeft < -limitW) {
+                return;
+            }
+            item.node.position = new Vec3(rightItem.node.position.x - rightItem.view.width / 2 - this._spaceX - item.view.width / 2, 0);
+        } else {
+            item.node.position = new Vec3(limitW - item.view.width / 2, 0);
+        }
+        this._layout.node.addChild(item.node);
+        items.push(item);
+        this.createGrildItems(index - 1, gIndex, item, items);
+    }
+
+
+
     //判断是否在窗口
     private isInWindow(item: BaseViewHolder): boolean {
         let point = this.getPositionInView(item);
         let type = this._layoutType;
+        let startAxis = this._startAxis;
         if (type == Layout.Type.VERTICAL) {
             if (point.y - item.view.height / 2 > this.halfScrollView
                 || point.y + item.view.height / 2 < -this.halfScrollView) {
@@ -343,8 +510,78 @@ export class RecyclerView extends Component {
                 || point.x - item.view.width / 2 > this.halfScrollView) {
                 return false;
             }
+        } else if (type == Layout.Type.GRID) {
+            if (startAxis == 0) {
+                if (point.x + item.view.width / 2 < -this.halfScrollView
+                    || point.x - item.view.width / 2 > this.halfScrollView) {
+                    return false;
+                }
+            } else if (startAxis == 1) {
+                if (point.y - item.view.height / 2 > this.halfScrollView
+                    || point.y + item.view.height / 2 < -this.halfScrollView) {
+                    return false;
+                }
+            }
         }
         return true;
+    }
+
+    //判断是否能容纳在同一个网格内
+    private isInGrid(last: BaseViewHolder, current: BaseViewHolder): boolean {
+        if (this._layoutType != Layout.Type.GRID) {
+            return false
+        }
+
+        let startAxis = this._startAxis;
+        if (startAxis == 0) {
+            //水平
+        } else if (startAxis == 1) {
+            //垂直
+            //let bottomY = -this._pdTop;
+            let limitW = this._view.anchorX * this._view.width;
+            //let startX = -limitW; //最左侧的点 坐标
+            if (last.node.position.x + last.view.width / 2 + this._spaceX + current.view.width > limitW) {
+                return false;//不能容纳在一个网格内
+            }
+        }
+        return true;
+    }
+
+    private getRightItem(zIndex: number): BaseViewHolder {
+        let childs = this._childrens;
+        let rightItem: BaseViewHolder = null;
+        for (let i = 0; i < childs.length; ++i) {
+            if (childs[i].gIndex == zIndex) {
+                if (rightItem) {
+                    if (this._startAxis == 1) {
+                        rightItem = childs[i];
+                    }
+                } else {
+                    rightItem = childs[i];
+                }
+            }
+        }
+        return rightItem;
+    }
+
+
+    private getMaxItem(zIndex: number): BaseViewHolder {
+        let childs = this._childrens;
+        let maxItem: BaseViewHolder = null;
+        for (let i = 0; i < childs.length; ++i) {
+            if (childs[i].gIndex == zIndex) {
+                if (maxItem) {
+                    if (this._startAxis == 1) {
+                        if (maxItem.view.height < childs[i].view.height) {
+                            maxItem = childs[i];
+                        }
+                    }
+                } else {
+                    maxItem = childs[i];
+                }
+            }
+        }
+        return maxItem;
     }
 
     /**获取item在scrollView的局部坐标 */
@@ -449,6 +686,81 @@ export class RecyclerView extends Component {
             this.createPreviousItem();
         }
         this.lastContentPosX = this._layout.node.position.x;
+    }
+
+    public updateGridV() {
+        let isUp = this._layout.node.position.y > this.lastContentPosY;
+        let childs = this._childrens;
+
+        let items = {};
+        let gIndex = 0;
+        for (let i = 0; i < childs.length; ++i) {
+            if (childs[i].gIndex != gIndex) {
+                gIndex = childs[i].gIndex;
+            }
+            if (!items[gIndex]) {
+                items[gIndex] = [];
+            }
+            items[gIndex].push(childs[i]);
+        }
+
+        let deleteItems = [];
+
+        let length = Object.keys(items).length;
+        let startIndex = 0;
+        for (let key in items) {
+            if(isUp){
+                if(startIndex >= length - 1){
+                    break;
+                }
+            }else{
+                if(startIndex == 0){
+                    startIndex += 1;
+                    continue;
+                }
+            }
+            let datas: Array<BaseViewHolder> = items[key];
+            let maxItem = this.getMaxItem(datas[0].gIndex);
+            let viewPos = this.getPositionInView(maxItem);
+            if (isUp) {
+                if (viewPos.y - maxItem.view.height / 2 > this.halfScrollView) {
+                    datas.forEach((v) => {
+                        deleteItems.push(v)
+                    })
+                }
+            } else {
+                if (viewPos.y + maxItem.view.height / 2 < -this.halfScrollView) {
+                    datas.forEach((v) => {
+                        deleteItems.push(v)
+                    })
+                }
+            }
+            startIndex += 1;
+        }
+
+        for (let i = 0; i < childs.length; ++i) {
+            if (childs.length <= 1) {
+                break;
+            }
+            for (let j = 0; j < deleteItems.length; ++j) {
+                if (childs[i].itemIndex == deleteItems[j].itemIndex) {
+                    this.removeItem(childs[i]);
+                    childs.splice(i, 1);
+                    deleteItems.splice(j, 1);
+                    i--;
+                    break;
+                }
+            }
+        }
+
+        if (isUp) {
+            //创建下一个
+            this.createNextItem();
+        } else {
+            //创建上一个
+            this.createGrildPreviousItem();
+        }
+        this.lastContentPosY = this._layout.node.position.y;
     }
 
 

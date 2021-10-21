@@ -20,6 +20,9 @@ export abstract class BaseViewHolder {
 
     public itemIndex:number;
 
+    //节点所在滚动层级
+    public gIndex:number;
+
     constructor(node: Node){
         this.node = node;
         this.view = node.getComponent(UITransform);
